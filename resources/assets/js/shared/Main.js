@@ -3,6 +3,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
 import HomePage from "../components/HomePage";
+import CreatePage from "../components/pages/CreatePage";
 
 const styles = {
   main: {
@@ -23,6 +24,11 @@ const Main = () => (
           exact
           path={process.env.MIX_APP_PUBLIC_DIRECTORY}
           component={HomePage}
+        />
+        <Route
+          exact
+          path={process.env.MIX_APP_PUBLIC_DIRECTORY + "/pages/create"}
+          component={CreatePage}
         />
       </Switch>
     </div>

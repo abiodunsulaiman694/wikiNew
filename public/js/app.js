@@ -798,15 +798,15 @@ module.exports = checkPropTypes;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(56);
 /* unused harmony reexport Prompt */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(58);
-/* unused harmony reexport Redirect */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(25);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(15);
 /* unused harmony reexport Router */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(64);
 /* unused harmony reexport StaticRouter */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(66);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(68);
 /* unused harmony reexport matchPath */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(69);
@@ -1952,11 +1952,19 @@ var Header = function (_Component) {
               __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* NavLink */],
               {
                 style: styles.nav,
-                exact: true,
                 to: "/wikiNew/public" || "#",
                 activeStyle: styles.activeNav
               },
               "Home"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* NavLink */],
+              {
+                style: styles.nav,
+                to: "/wikiNew/public" + "/pages/create",
+                activeStyle: styles.activeNav
+              },
+              "New Page"
             )
           )
         )
@@ -22796,7 +22804,7 @@ Prompt.contextTypes = {
 // Written in this round about way for babel-transform-imports
 
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_Redirect__["a" /* default */]);
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_Redirect__["a" /* default */]);
 
 /***/ }),
 /* 59 */
@@ -24180,6 +24188,8 @@ var withRouter = function withRouter(Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Header__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_HomePage__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_pages_CreatePage__ = __webpack_require__(79);
+
 
 
 
@@ -24205,12 +24215,17 @@ var Main = function Main() {
       "div",
       { className: "container", style: styles.content },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Switch */],
+        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* Switch */],
         null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], {
           exact: true,
           path: "/wikiNew/public",
           component: __WEBPACK_IMPORTED_MODULE_3__components_HomePage__["a" /* default */]
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], {
+          exact: true,
+          path: "/wikiNew/public" + "/pages/create",
+          component: __WEBPACK_IMPORTED_MODULE_4__components_pages_CreatePage__["a" /* default */]
         })
       )
     )
@@ -24270,6 +24285,322 @@ var HomePage = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 /* harmony default export */ __webpack_exports__["a"] = (HomePage);
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_CustomInput__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_CustomTextArea__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_Button__ = __webpack_require__(81);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+var styles = {
+  itemContainer: {
+    alignItems: "center",
+    flex: 1
+  },
+  buttonStyle: {
+    margin: "10px 10px 10px 10px"
+  }
+};
+
+var CreatePage = function (_Component) {
+  _inherits(CreatePage, _Component);
+
+  function CreatePage(props) {
+    _classCallCheck(this, CreatePage);
+
+    var _this = _possibleConstructorReturn(this, (CreatePage.__proto__ || Object.getPrototypeOf(CreatePage)).call(this, props));
+
+    _this.state = {
+      newPage: {
+        title: "",
+        body: "",
+        url: ""
+      },
+      success: false,
+      loading: false
+    };
+    _this.handleFormSubmit = _this.handleFormSubmit.bind(_this);
+    _this.handleInput = _this.handleInput.bind(_this);
+    return _this;
+  }
+
+  _createClass(CreatePage, [{
+    key: "handleInput",
+    value: function handleInput(e) {
+      var value = e.target.value;
+      var name = e.target.name;
+      this.setState(function (prevState) {
+        return {
+          newPage: _extends({}, prevState.newPage, _defineProperty({}, name, value))
+        };
+      });
+    }
+  }, {
+    key: "handleFormSubmit",
+    value: function handleFormSubmit(e) {
+      var _this2 = this;
+
+      e.preventDefault();
+      var errors = "";
+      var _state$newPage = this.state.newPage,
+          title = _state$newPage.title,
+          body = _state$newPage.body;
+
+      if (title == "") {
+        errors += "Title is required.\n";
+      }
+      if (body == "") {
+        errors += "Body is required.\n";
+      }
+      if (errors != "") {
+        this.setState({
+          errors: errors
+        });
+        return;
+      }
+      this.setState({
+        errors: errors
+      });
+      var postData = {
+        body: body
+      };
+
+      fetch("http://localhost/wikiNew/public" + "/api/page/" + title, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response.message == "Success") {
+          _this2.setState(function (prevState) {
+            return {
+              newPage: _extends({}, prevState.newPage, {
+                title: response.page.title,
+                body: response.page.body,
+                url: response.page.url
+              }),
+              loading: false,
+              success: true
+            };
+          });
+        } else {
+          _this2.setState({
+            errors: response.message,
+            loading: false
+          });
+        }
+      }).catch(function (error) {
+        _this2.setState({
+          errors: error,
+          loading: false
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.success) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], {
+          to: "/wikiNew/public" + "/wiki/" + this.state.newPage.url
+        });
+      }
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { style: styles.itemContainer },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "h2",
+          null,
+          "Add new Page"
+        ),
+        this.state.errors && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "text-danger" },
+          this.state.errors
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "form",
+          { className: "container-fluid", onSubmit: this.handleFormSubmit },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_CustomInput__["a" /* default */], {
+            type: "text",
+            title: "Page Title",
+            name: "title",
+            value: this.state.newPage.title,
+            placeholder: "Enter Page Title",
+            onChange: this.handleInput
+          }),
+          " ",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__shared_CustomTextArea__["a" /* default */], {
+            title: "Page details",
+            rows: 10,
+            cols: 20,
+            value: this.state.newPage.body,
+            name: "body",
+            onChange: this.handleInput,
+            placeholder: "Page details"
+          }),
+          " ",
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__shared_Button__["a" /* default */], {
+            action: this.handleFormSubmit,
+            type: "btn btn-primary",
+            title: "Create Page",
+            disabled: this.state.disabled
+          })
+        )
+      );
+    }
+  }]);
+
+  return CreatePage;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (CreatePage);
+
+/***/ }),
+/* 80 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+var CustomInput = function CustomInput(props) {
+  //console.log(props.value);
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "div",
+    { className: "form-group" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "label",
+      { htmlFor: props.name, className: "form-label" },
+      props.title
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", _extends({
+      className: "form-control",
+      id: props.name,
+      name: props.name,
+      type: props.type,
+      value: props.value,
+      onChange: props.onChange,
+      placeholder: props.placeholder
+    }, props))
+  );
+};
+
+CustomInput.propTypes = {
+  type: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOf(["text", "number", "email", "date"]).isRequired,
+  name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string.isRequired,
+  onChange: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired,
+  placeholder: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (CustomInput);
+
+/***/ }),
+/* 81 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+
+
+
+var Button = function Button(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "button",
+    {
+      style: props.style,
+      className: props.type,
+      onClick: props.action,
+      disabled: props.disabled ? "disabled" : ""
+    },
+    props.title
+  );
+};
+Button.propTypes = {
+  action: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired
+};
+Button.defaultProps = {
+  disabled: false
+};
+/* harmony default export */ __webpack_exports__["a"] = (Button);
+
+/***/ }),
+/* 82 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+
+var CustomTextArea = function CustomTextArea(props) {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    "div",
+    { className: "form-group" },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "label",
+      { className: "form-label" },
+      props.title
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", _extends({
+      className: "form-control",
+      id: props.name,
+      name: props.name,
+      type: props.type,
+      value: props.value,
+      onChange: props.onChange,
+      placeholder: props.placeholder
+    }, props))
+  );
+};
+CustomTextArea.propTypes = {
+  name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string.isRequired,
+  onChange: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired,
+  placeholder: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
+  rows: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
+  cols: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number
+};
+/* harmony default export */ __webpack_exports__["a"] = (CustomTextArea);
 
 /***/ })
 /******/ ]);
