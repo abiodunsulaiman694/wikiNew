@@ -1951,6 +1951,7 @@ var Header = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* NavLink */],
               {
+                exact: true,
                 style: styles.nav,
                 to: "/wikiNew/public" || "#",
                 activeStyle: styles.activeNav
@@ -1960,6 +1961,7 @@ var Header = function (_Component) {
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* NavLink */],
               {
+                exact: true,
                 style: styles.nav,
                 to: "/wikiNew/public" + "/pages/create",
                 activeStyle: styles.activeNav

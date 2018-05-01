@@ -44,6 +44,7 @@ class Header extends Component {
           <div style={styles.headerTitle}>{process.env.MIX_APP_NAME}</div>
           <div style={styles.headerNav}>
             <NavLink
+              exact
               style={styles.nav}
               to={process.env.MIX_APP_PUBLIC_DIRECTORY || "#"}
               activeStyle={styles.activeNav}
@@ -51,6 +52,7 @@ class Header extends Component {
               Home
             </NavLink>
             <NavLink
+              exact
               style={styles.nav}
               to={process.env.MIX_APP_PUBLIC_DIRECTORY + "/pages/create"}
               activeStyle={styles.activeNav}
