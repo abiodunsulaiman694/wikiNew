@@ -1,24 +1,25 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import Header from "../shared/Header";
+import Main from "../shared/Main";
 
 export default class App extends Component {
   render() {
     return (
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-8">
-            <div className="card">
-              <div className="card-header">App Component</div>
-
-              <div className="card-body">Running from within React</div>
-            </div>
-          </div>
-        </div>
+      <div style={{ flex: 1 }}>
+        <Header />
+        <Main />
       </div>
     );
   }
 }
 
 if (document.getElementById("app")) {
-  ReactDOM.render(<App />, document.getElementById("app"));
+  ReactDOM.render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>,
+    document.getElementById("app")
+  );
 }
