@@ -2,6 +2,7 @@ import React from "react";
 
 import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
+import HomePage from "../components/HomePage";
 
 const styles = {
   main: {
@@ -16,7 +17,15 @@ const styles = {
 
 const Main = () => (
   <main style={styles.main}>
-    <div className="container" style={styles.content} />
+    <div className="container" style={styles.content}>
+      <Switch>
+        <Route
+          exact
+          path={process.env.MIX_APP_PUBLIC_DIRECTORY}
+          component={HomePage}
+        />
+      </Switch>
+    </div>
   </main>
 );
 
