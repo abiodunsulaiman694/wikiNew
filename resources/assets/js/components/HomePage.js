@@ -78,9 +78,19 @@ class HomePage extends Component {
                 Retry
               </Link>
             </div>
-          ) : pages ? (
+          ) : pages.length == 0 ? (
+            <div>
+              Welcome to Wiki. No page yet.{" "}
+              <Link
+                to={process.env.MIX_APP_PUBLIC_DIRECTORY + "/pages/create"}
+                className="btn btn-link"
+              >
+                Add new Page
+              </Link>
+            </div>
+          ) : (
             this.renderPages()
-          ) : null}
+          )}
         </div>
       </div>
     );

@@ -24384,7 +24384,20 @@ var HomePage = function (_Component) {
               },
               "Retry"
             )
-          ) : pages ? this.renderPages() : null
+          ) : pages.length == 0 ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            null,
+            "Welcome to Wiki. No page yet.",
+            " ",
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+              {
+                to: "/wikiNew/public" + "/pages/create",
+                className: "btn btn-link"
+              },
+              "Add new Page"
+            )
+          ) : this.renderPages()
         )
       );
     }
