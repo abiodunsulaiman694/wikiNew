@@ -58,5 +58,7 @@ within project directory with:
   5)Migrate database files from the terminal, within project directory with:
       php artisan migrate
 
-  6) Run app from the terminal, within project directory with:
-      php artisan serve --port=8142
+  6) Run project via the browser, by going to the public directory of the Server
+    as specified in the .env file
+
+Thank you.
