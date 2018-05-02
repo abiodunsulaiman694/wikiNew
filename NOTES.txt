@@ -56,10 +56,13 @@ within project directory with:
     DB_USERNAME=root
     DB_PASSWORD=
 
-  5)Migrate database files from the terminal, within project directory with:
+  5) Generate encryption key from the terminal, within the project rot directory, with:
+      php artisan key:generate
+
+  6)Migrate database files from the terminal, within project directory with:
       php artisan migrate
 
-  6) Run project via the browser, by going to the public directory of the Server
+  7) Run project via the browser, by going to the public directory of the Server
     as specified in the .env file
 
 Thank you.
