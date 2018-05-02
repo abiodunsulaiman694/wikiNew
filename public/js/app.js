@@ -24617,15 +24617,27 @@ CustomTextArea.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_CustomInput__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_Button__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__LinkComponent__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_prop_types__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
 
 
 
@@ -24655,8 +24667,16 @@ var ShowPage = function (_Component) {
       page: null,
       invalid: false,
       errors: "",
-      loading: true
+      loading: true,
+      addLink: false,
+      linkTitle: "",
+      success: "",
+      redirectToNewPage: false,
+      redirectUrl: ""
     };
+    _this.toggleAddLink = _this.toggleAddLink.bind(_this);
+    _this.handleInput = _this.handleInput.bind(_this);
+    _this.handleLinkFormSubmit = _this.handleLinkFormSubmit.bind(_this);
     return _this;
   }
 
@@ -24702,6 +24722,116 @@ var ShowPage = function (_Component) {
       });
     }
   }, {
+    key: "handleInput",
+    value: function handleInput(e) {
+      var value = e.target.value;
+      var name = e.target.name;
+      this.setState(function (prevState) {
+        return _extends({}, prevState, _defineProperty({}, name, value));
+      });
+    }
+  }, {
+    key: "handleLinkFormSubmit",
+    value: function handleLinkFormSubmit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var errors = "";
+      this.setState({
+        errors: errors,
+        success: ""
+      });
+      var pageTitle = this.state.page.title;
+      var linkTitle = this.state.linkTitle;
+      if (pageTitle == "") {
+        errors += "Page Title is required.\n";
+      }
+      if (this.state.linkTitle == "") {
+        errors += "Link title is required.\n";
+      }
+      if (errors != "") {
+        this.setState({
+          errors: errors
+        });
+        return;
+      }
+      fetch("http://localhost/wikiNew/public" + "/api/link/" + pageTitle + "/to/" + linkTitle, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response.message == "Success") {
+          _this3.setState({
+            links: [].concat(_toConsumableArray(_this3.state.links), [response.link]),
+            success: "Link added successfully"
+          }, function () {
+            return console.log(_this3.state.links);
+          });
+        } else {
+          _this3.setState({
+            errors: response.message
+          });
+        }
+      }).catch(function (error) {
+        _this3.setState({
+          errors: error
+        });
+      });
+    }
+  }, {
+    key: "toggleAddLink",
+    value: function toggleAddLink() {
+      this.setState({
+        addLink: !this.state.addLink
+      });
+    }
+  }, {
+    key: "addLinkForm",
+    value: function addLinkForm() {
+      return this.state.page ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "form",
+        {
+          className: "container-fluid",
+          style: { marginTop: "20px" },
+          onSubmit: this.handleLinkFormSubmit
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "h5",
+          null,
+          "Add new Link to ",
+          this.state.page.title
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_CustomInput__["a" /* default */], {
+          type: "text",
+          title: "Link Title or Slug",
+          name: "linkTitle",
+          value: this.state.linkTitle,
+          placeholder: "Link Title or Slug",
+          onChange: this.handleInput
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__shared_Button__["a" /* default */], {
+          action: this.handleLinkFormSubmit,
+          type: "btn btn-primary",
+          title: "Add Link"
+        })
+      ) : null;
+    }
+  }, {
+    key: "renderLinks",
+    value: function renderLinks() {
+      if (this.state.links) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__LinkComponent__["a" /* default */], {
+          links: this.state.links,
+          redirect: this.state.redirect
+        });
+      }
+      return;
+    }
+  }, {
     key: "render",
     value: function render() {
       var _state = this.state,
@@ -24711,7 +24841,9 @@ var ShowPage = function (_Component) {
           deleted = _state.deleted,
           loading = _state.loading,
           redirectToNewPage = _state.redirectToNewPage,
-          redirectUrl = _state.redirectUrl;
+          redirectUrl = _state.redirectUrl,
+          addLink = _state.addLink,
+          links = _state.links;
 
       if (redirectToNewPage) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], {
@@ -24740,6 +24872,29 @@ var ShowPage = function (_Component) {
           "div",
           { style: styles.body },
           page.body
+        ),
+        links ? this.renderLinks() : null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { style: { display: "flex" } },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { style: { flex: 1 } },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "p",
+              null,
+              "\xA0"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "button",
+              {
+                className: "btn btn-info btn-sm",
+                onClick: this.toggleAddLink
+              },
+              addLink ? "Close Link Form" : "Add new Link"
+            ),
+            addLink ? this.addLinkForm() : null
+          )
         )
       ) : null;
     }
@@ -24770,6 +24925,193 @@ var WrongPath = function WrongPath() {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (WrongPath);
+
+/***/ }),
+/* 85 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(12);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _linkContent;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+var styles = {
+  linkContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+    marginTop: "20px"
+  },
+  linkitem: {
+    flex: "0 0 30%",
+    maxWidth: "30%",
+    height: "100px",
+    display: "flex",
+    marginBottom: "10px",
+    backgroundColor: "#ffffff",
+    paddingRight: "10px",
+    border: "1px #d7d7da solid"
+  },
+  linkThumbnailDiv: {
+    flex: 1
+  },
+  linkThumbnail: {
+    objectFit: "contain",
+    height: "100px"
+  },
+  linkContent: (_linkContent = {
+    flex: 3,
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: "10px",
+    flexDirection: "column",
+    justifyContent: "center"
+  }, _defineProperty(_linkContent, "alignItems", "flex-start"), _defineProperty(_linkContent, "verticalAlign", "top"), _linkContent),
+  subTitleLink: {
+    fontSize: "10px",
+    color: "#a8abaf"
+  },
+  existentLink: {
+    color: "#070707"
+  },
+  nonExistentLink: {
+    color: "#f92c1c"
+  },
+  clearfix: { display: "block" }
+};
+var counter = 0;
+
+var LinkComponent = function (_Component) {
+  _inherits(LinkComponent, _Component);
+
+  function LinkComponent(props) {
+    _classCallCheck(this, LinkComponent);
+
+    var _this = _possibleConstructorReturn(this, (LinkComponent.__proto__ || Object.getPrototypeOf(LinkComponent)).call(this, props));
+
+    _this.state = {
+      showAllLinks: false,
+      links_length: 0
+    };
+    _this.toggleShowAllLinks = _this.toggleShowAllLinks.bind(_this);
+    return _this;
+  }
+
+  _createClass(LinkComponent, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var links_length = 0;
+      if (Array.isArray(this.props.links)) {
+        links_length = this.props.links.length;
+      }
+      if (this.props.redirect) {
+        if (this.props.redirect.title) {
+          links_length++;
+        }
+      }
+      this.setState({
+        links_length: links_length
+      });
+      counter = 0;
+    }
+  }, {
+    key: "toggleShowAllLinks",
+    value: function toggleShowAllLinks() {
+      this.setState({
+        showAllLinks: !this.state.showAllLinks
+      });
+      counter = 0;
+    }
+  }, {
+    key: "renderLinksAndRedirect",
+    value: function renderLinksAndRedirect(title, existent) {
+      var redirect = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var key = arguments[3];
+
+      {
+        counter += 1;
+      }
+      return counter <= 3 || this.state.showAllLinks ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { style: styles.linkitem, key: key },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { style: styles.linkThumbnailDiv },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("img", {
+            src: "/wikiNew/public" + "/images/noimage_.png",
+            style: styles.linkThumbnail
+          })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { style: styles.linkContent },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            {
+              style: existent || redirect ? styles.existentLink : styles.nonExistentLink
+            },
+            title
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("div", { style: styles.clearfix }),
+          redirect ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { style: styles.subTitleLink },
+            "Redirect link"
+          ) : !existent && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { style: styles.subTitleLink },
+            "Non existent link"
+          )
+        )
+      ) : null;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        { style: styles.linkContainer },
+        this.props.links.map(function (link) {
+          return _this2.renderLinksAndRedirect(link.link_title, link.existent, false, link.id);
+        }),
+        this.state.links_length > 3 && !this.state.showAllLinks ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "button",
+          { className: "btn btn-link", onClick: this.toggleShowAllLinks },
+          "Show all links"
+        ) : null
+      );
+    }
+  }]);
+
+  return LinkComponent;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+LinkComponent.propTypes = {
+  links: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array,
+  redirects: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (LinkComponent);
 
 /***/ })
 /******/ ]);

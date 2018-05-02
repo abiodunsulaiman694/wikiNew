@@ -14,3 +14,5 @@ use Illuminate\Http\Request;
 */
 Route::post('page/{title}', 'PageAPIController@store');
 Route::get('wiki/{url}', 'PageAPIController@show');
+Route::get('link/{page_title}/to/{link_title}',
+            'PageAPIController@store_link');

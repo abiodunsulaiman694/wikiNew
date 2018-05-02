@@ -53,4 +53,59 @@ class PageAPIController extends Controller
       ], 200);
     }
   }
+
+  /**
+   * Store a newly created link in storage.
+   *
+   * @param  string  $page_title
+   * @param  string  $link_title
+   * @return \Illuminate\Http\Response
+   */
+  function store_link($page_title, $link_title) {
+    $decode_link_title = utf8_decode(urldecode($link_title));
+    $decode_page_title = utf8_decode(urldecode($page_title));
+    if (strtolower($decode_link_title) == strtolower($decode_page_title)) {
+      return response()->json([
+          'message' => 'Page should not link to self'
+      ], 200);
+    }
+
+    $page = Page::where('title', $decode_page_title)
+                  ->orWhere('url', $decode_page_title)
+                  ->first();
+    if (!$page) {
+      return response()->json([
+          'message' => 'Page does not exist'
+      ], 200);
+    }
+    if (strtolower($page->url) == strtolower($decode_link_title)) {
+      return response()->json([
+          'message' => 'Page should not link to self'
+      ], 200);
+    }
+
+    $check_link = Page::where('title', $decode_link_title)
+                  ->orWhere('url', $decode_link_title)
+                  ->first();
+    if ($check_link) {
+      $existent = 1;
+      $link_url = $check_link->url;
+    } else {
+      $existent = 0;
+      $link_url = null;
+    }
+
+    $new_link = new Link();
+    $new_link->page_id = $page->id;
+    $new_link->link_title = $decode_link_title;
+    $new_link->link_url = $link_url;
+    $new_link->existent = $existent;
+    $new_link->save();
+    return response()->json([
+        'link' => $new_link,
+        'message' => 'Success'
+    ], 200);
+  }
+
+
 }
