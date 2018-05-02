@@ -37,6 +37,7 @@ within project directory with:
     sudo chmod -R 777 ./PUBLIC
     [Might require sudo privilege]
 4) Set up .env file at the root of the application.
+    Copy .env.example to .env
     Most importantly, the following should be filled in the .env for the app to function
     correctly:
 
