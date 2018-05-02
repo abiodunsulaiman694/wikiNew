@@ -24617,11 +24617,12 @@ CustomTextArea.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_CustomInput__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_Button__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__LinkComponent__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_prop_types__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_WrongPath__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_CustomInput__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_Button__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__LinkComponent__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -24643,8 +24644,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var styles = {
-  itemContainer: {},
+  itemContainer: {
+    flex: 1
+  },
   title: {
     color: "#676b74",
     textTransform: "uppercase"
@@ -24665,18 +24669,25 @@ var ShowPage = function (_Component) {
 
     _this.state = {
       page: null,
+      links: null,
+      redirect: null,
       invalid: false,
       errors: "",
-      loading: true,
       addLink: false,
+      addRedirect: false,
       linkTitle: "",
+      redirectTitle: "",
+      deleted: false,
       success: "",
       redirectToNewPage: false,
       redirectUrl: ""
     };
     _this.toggleAddLink = _this.toggleAddLink.bind(_this);
+    _this.toggleAddRedirect = _this.toggleAddRedirect.bind(_this);
     _this.handleInput = _this.handleInput.bind(_this);
     _this.handleLinkFormSubmit = _this.handleLinkFormSubmit.bind(_this);
+    _this.handleRedirectFormSubmit = _this.handleRedirectFormSubmit.bind(_this);
+    _this.handlePageDelete = _this.handlePageDelete.bind(_this);
     return _this;
   }
 
@@ -24698,26 +24709,22 @@ var ShowPage = function (_Component) {
           if (response.page.redirect_id) {
             _this2.setState({
               redirectToNewPage: true,
-              redirectUrl: response.page.redirect.url,
-              loading: false
+              redirectUrl: response.page.redirect.url
             });
           }
           _this2.setState({
             page: response.page,
             links: response.page.links,
-            redirect: response.page.redirect,
-            loading: false
+            redirect: response.page.redirect
           });
         } else {
           _this2.setState({
-            invalid: true,
-            loading: false
+            invalid: true
           });
         }
       }).catch(function (error) {
         _this2.setState({
-          errors: error,
-          loading: false
+          errors: error
         });
       });
     }
@@ -24783,11 +24790,110 @@ var ShowPage = function (_Component) {
       });
     }
   }, {
+    key: "handleRedirectFormSubmit",
+    value: function handleRedirectFormSubmit(e) {
+      var _this4 = this;
+
+      e.preventDefault();
+      var errors = "";
+      this.setState({
+        errors: errors,
+        success: ""
+      });
+      var pageTitle = this.state.page.title;
+      var redirectTitle = this.state.redirectTitle;
+      if (pageTitle == "") {
+        errors += "Page Title is required.\n";
+      }
+      if (this.state.redirectTitle == "") {
+        errors += "Redirect title or slug is required.\n";
+      }
+      if (errors != "") {
+        this.setState({
+          errors: errors
+        });
+        return;
+      }
+      fetch("http://localhost/wikiNew/public" + "/api/redirect/" + pageTitle + "/to/" + redirectTitle, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response.message == "Success") {
+          _this4.setState({
+            redirect: response.redirect,
+            success: "Redirect configured successfully"
+          });
+        } else {
+          _this4.setState({
+            errors: response.message
+          });
+        }
+      }).catch(function (error) {
+        _this4.setState({
+          errors: error
+        });
+      });
+    }
+  }, {
+    key: "handlePageDelete",
+    value: function handlePageDelete() {
+      var _this5 = this;
+
+      var pageTitle = this.state.page.title;
+      fetch("http://localhost/wikiNew/public" + "/api/delete/" + pageTitle, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response.message == "Success") {
+          _this5.setState({
+            success: "Page deleted successfully",
+            deleted: true
+          });
+        } else {
+          _this5.setState({
+            errors: response.message
+          });
+        }
+      }).catch(function (error) {
+        _this5.setState({
+          errors: error
+        });
+      });
+    }
+  }, {
     key: "toggleAddLink",
     value: function toggleAddLink() {
       this.setState({
         addLink: !this.state.addLink
       });
+    }
+  }, {
+    key: "toggleAddRedirect",
+    value: function toggleAddRedirect() {
+      this.setState({
+        addRedirect: !this.state.addRedirect
+      });
+    }
+  }, {
+    key: "renderLinks",
+    value: function renderLinks() {
+      if (this.state.links) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__LinkComponent__["a" /* default */], {
+          links: this.state.links,
+          redirect: this.state.redirect
+        });
+      }
+      return;
     }
   }, {
     key: "addLinkForm",
@@ -24805,7 +24911,7 @@ var ShowPage = function (_Component) {
           "Add new Link to ",
           this.state.page.title
         ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__shared_CustomInput__["a" /* default */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__shared_CustomInput__["a" /* default */], {
           type: "text",
           title: "Link Title or Slug",
           name: "linkTitle",
@@ -24813,7 +24919,7 @@ var ShowPage = function (_Component) {
           placeholder: "Link Title or Slug",
           onChange: this.handleInput
         }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__shared_Button__["a" /* default */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__shared_Button__["a" /* default */], {
           action: this.handleLinkFormSubmit,
           type: "btn btn-primary",
           title: "Add Link"
@@ -24821,15 +24927,34 @@ var ShowPage = function (_Component) {
       ) : null;
     }
   }, {
-    key: "renderLinks",
-    value: function renderLinks() {
-      if (this.state.links) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__LinkComponent__["a" /* default */], {
-          links: this.state.links,
-          redirect: this.state.redirect
-        });
-      }
-      return;
+    key: "addRedirectForm",
+    value: function addRedirectForm() {
+      return this.state.page ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "form",
+        {
+          className: "container-fluid",
+          style: { marginTop: "20px" },
+          onSubmit: this.handleRedirectFormSubmit
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "h5",
+          null,
+          "Configure Page Redirect "
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__shared_CustomInput__["a" /* default */], {
+          type: "text",
+          title: "Redirect Page Title or Slug",
+          name: "redirectTitle",
+          value: this.state.redirectTitle,
+          placeholder: "Redirect Page Title or Slug",
+          onChange: this.handleInput
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__shared_Button__["a" /* default */], {
+          action: this.handleRedirectFormSubmit,
+          type: "btn btn-primary",
+          title: "Save Page Redirect"
+        })
+      ) : null;
     }
   }, {
     key: "render",
@@ -24838,12 +24963,12 @@ var ShowPage = function (_Component) {
           page = _state.page,
           invalid = _state.invalid,
           errors = _state.errors,
-          deleted = _state.deleted,
-          loading = _state.loading,
+          addLink = _state.addLink,
+          links = _state.links,
+          addRedirect = _state.addRedirect,
           redirectToNewPage = _state.redirectToNewPage,
           redirectUrl = _state.redirectUrl,
-          addLink = _state.addLink,
-          links = _state.links;
+          deleted = _state.deleted;
 
       if (redirectToNewPage) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], {
@@ -24856,11 +24981,7 @@ var ShowPage = function (_Component) {
       if (invalid) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], { to: "/wikiNew/public" + "/404" });
       }
-      return loading ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "div",
-        null,
-        "Loading..."
-      ) : page ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      return page ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { style: styles.itemContainer },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -24874,6 +24995,28 @@ var ShowPage = function (_Component) {
           page.body
         ),
         links ? this.renderLinks() : null,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { align: "right" },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "button",
+            {
+              className: "btn btn-sm btn-danger",
+              onClick: this.handlePageDelete
+            },
+            "Delete Page"
+          )
+        ),
+        this.state.success && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "text-success" },
+          this.state.success
+        ),
+        this.state.errors && __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { className: "text-danger" },
+          this.state.errors
+        ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
           { style: { display: "flex" } },
@@ -24894,9 +25037,31 @@ var ShowPage = function (_Component) {
               addLink ? "Close Link Form" : "Add new Link"
             ),
             addLink ? this.addLinkForm() : null
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { style: { flex: 1 } },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "p",
+              null,
+              "\xA0"
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "button",
+              {
+                className: "btn btn-info btn-sm",
+                onClick: this.toggleAddRedirect
+              },
+              addRedirect ? "Close Redirect Form" : "Configure Page Redirect"
+            ),
+            addRedirect ? this.addRedirectForm() : null
           )
         )
-      ) : null;
+      ) : __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        "div",
+        null,
+        "Loading..."
+      );
     }
   }]);
 
@@ -25041,6 +25206,11 @@ var LinkComponent = function (_Component) {
       counter = 0;
     }
   }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      counter = 0;
+    }
+  }, {
     key: "renderLinksAndRedirect",
     value: function renderLinksAndRedirect(title, existent) {
       var redirect = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
@@ -25088,9 +25258,11 @@ var LinkComponent = function (_Component) {
     value: function render() {
       var _this2 = this;
 
+      console.log(this.props);
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { style: styles.linkContainer },
+        this.props.redirect ? this.renderLinksAndRedirect(this.props.redirect.title, false, true, null) : null,
         this.props.links.map(function (link) {
           return _this2.renderLinksAndRedirect(link.link_title, link.existent, false, link.id);
         }),

@@ -7,7 +7,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
         <title>{{env("APP_NAME")}}</title>
-        <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}" />
+        <link rel="stylesheet" href="{{url('css/bootstrap.css')}}" />
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">

@@ -80,6 +80,9 @@ class LinkComponent extends Component {
     });
     counter = 0;
   }
+  componentWillReceiveProps(nextProps) {
+    counter = 0;
+  }
   renderLinksAndRedirect(title, existent, redirect = false, key) {
     {
       counter += 1;
@@ -115,8 +118,17 @@ class LinkComponent extends Component {
     ) : null;
   }
   render() {
+    console.log(this.props);
     return (
       <div style={styles.linkContainer}>
+        {this.props.redirect
+          ? this.renderLinksAndRedirect(
+              this.props.redirect.title,
+              false,
+              true,
+              null
+            )
+          : null}
         {this.props.links.map(link =>
           this.renderLinksAndRedirect(
             link.link_title,
