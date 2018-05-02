@@ -131,7 +131,7 @@ class CreatePage extends Component {
             rows={10}
             cols={20}
             value={this.state.newPage.body}
-            name={"body"}
+            name="body"
             onChange={this.handleInput}
             placeholder={"Page details"}
           />{" "}

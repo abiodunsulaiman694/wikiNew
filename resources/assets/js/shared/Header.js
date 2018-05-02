@@ -34,14 +34,13 @@ const styles = {
 };
 
 class Header extends Component {
-  componentDidMount() {
-    console.log(process.env);
-  }
   render() {
     return (
       <div style={styles.headerBg}>
         <div className="container" style={{ backgroundColor: "#eaecf0" }}>
-          <div style={styles.headerTitle}>{process.env.MIX_APP_NAME}</div>
+          <div style={styles.headerTitle}>
+            {process.env.MIX_APP_NAME ? process.env.MIX_APP_NAME : "WikiTask"}
+          </div>
           <div style={styles.headerNav}>
             <NavLink
               exact

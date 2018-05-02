@@ -37,7 +37,7 @@ class PageAPIController extends Controller
   /**
    * Store a newly created page in storage.
    *
-   * @param  string  $turl
+   * @param  string  $url
    * @return \Illuminate\Http\Response
    */
   function show($url) {
