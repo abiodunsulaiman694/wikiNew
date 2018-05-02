@@ -121,13 +121,11 @@ class ShowPage extends Component {
       .then(response => response.json())
       .then(response => {
         if (response.message == "Success") {
-          this.setState(
-            {
-              links: [...this.state.links, response.link],
-              success: "Link added successfully"
-            },
-            () => console.log(this.state.links)
-          );
+          this.setState({
+            links: [...this.state.links, response.link],
+            linkTitle: "",
+            success: "Link added successfully"
+          });
         } else {
           this.setState({
             errors: response.message
@@ -181,7 +179,8 @@ class ShowPage extends Component {
         if (response.message == "Success") {
           this.setState({
             redirect: response.redirect,
-            success: "Redirect configured successfully"
+            success: "Redirect configured successfully",
+            redirectTitle: ""
           });
         } else {
           this.setState({

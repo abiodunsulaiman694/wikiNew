@@ -9,6 +9,19 @@ use Illuminate\Http\Request;
 class PageAPIController extends Controller
 {
   /**
+   * Retrieves all pages from storage.
+   *
+   * @return \Illuminate\Http\Response
+   */
+   function index() {
+     $pages = Page::with(['redirect', 'links'])->get();
+       return response()->json([
+           'pages' => $pages,
+           'message' => 'Success'
+       ], 200);
+   }
+
+  /**
    * Store a newly created page in storage.
    *
    * @param  \Illuminate\Http\Request  $request
@@ -35,7 +48,7 @@ class PageAPIController extends Controller
   }
 
   /**
-   * Store a newly created page in storage.
+   * Retrieves a page from storage.
    *
    * @param  string  $url
    * @return \Illuminate\Http\Response
@@ -103,6 +116,81 @@ class PageAPIController extends Controller
     $new_link->save();
     return response()->json([
         'link' => $new_link,
+        'message' => 'Success'
+    ], 200);
+  }
+
+  /**
+   * Store a redirect link in storage.
+   *
+   * @param  string  $page_title
+   * @param  string  $redirect_title
+   * @return \Illuminate\Http\Response
+   */
+  function store_redirect($page_title, $redirect_title) {
+    $decode_redirect_title = utf8_decode(urldecode($redirect_title));
+    $decode_page_title = utf8_decode(urldecode($page_title));
+    if (strtolower($decode_redirect_title) == strtolower($decode_page_title)) {
+      return response()->json([
+          'message' => 'Page should not redirect to self'
+      ], 200);
+    }
+
+    $page = Page::where('title', $decode_page_title)
+                  ->orWhere('url', $decode_page_title)
+                  ->first();
+    if (!$page) {
+      return response()->json([
+          'message' => 'Page does not exist'
+      ], 200);
+    }
+    if (strtolower($page->url) == strtolower($decode_redirect_title)) {
+      return response()->json([
+          'message' => 'Page should not redirect to self'
+      ], 200);
+    }
+
+    $check_redirect = Page::where('title', $decode_redirect_title)
+                  ->orWhere('url', $decode_redirect_title)
+                  ->first();
+    if (!$check_redirect) {
+      return response()->json([
+          'message' => 'Can not redirect to a non-existent page. Redirect page does not exist'
+      ], 200);
+    }
+    $page->redirect_id = $check_redirect->id;
+    $page->save();
+    return response()->json([
+        'redirect' => $check_redirect,
+        'message' => 'Success'
+    ], 200);
+  }
+
+  /**
+   * Remove the specified page from storage.e.
+   *
+   * @param  string  $page_title
+   * @return \Illuminate\Http\Response
+   */
+  function destroy($page_title) {
+    $decode_page_title = urldecode($page_title);
+    $page = Page::where('title', $decode_page_title)
+                  ->orWhere('url', $decode_page_title)
+                  ->first();
+    if (!$page) {
+      return response()->json([
+          'message' => 'Page does not exist'
+      ], 200);
+    }
+    //reset all redirects to page
+    $parent_pages = Page::where('redirect_id', $page->id)
+                        ->update(['redirect_id' => null]);
+    //render all links to page as non existent
+    $links = Link::where('link_url', $page->url)
+                  ->update(['link_url' => null, 'existent' => 0]);
+    //delete page
+    $page->delete();
+    return response()->json([
         'message' => 'Success'
     ], 200);
   }

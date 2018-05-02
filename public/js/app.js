@@ -790,23 +790,23 @@ module.exports = checkPropTypes;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(48);
 /* unused harmony reexport HashRouter */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(24);
-/* unused harmony reexport Link */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(50);
 /* unused harmony reexport MemoryRouter */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(53);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__NavLink__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Prompt__ = __webpack_require__(56);
 /* unused harmony reexport Prompt */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(58);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_6__Redirect__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(25);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(15);
 /* unused harmony reexport Router */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(64);
 /* unused harmony reexport StaticRouter */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Switch__ = __webpack_require__(66);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_10__Switch__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__matchPath__ = __webpack_require__(68);
 /* unused harmony reexport matchPath */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__withRouter__ = __webpack_require__(69);
@@ -1944,7 +1944,7 @@ var Header = function (_Component) {
             "div",
             { style: styles.headerNav },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* NavLink */],
+              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* NavLink */],
               {
                 exact: true,
                 style: styles.nav,
@@ -1954,7 +1954,7 @@ var Header = function (_Component) {
               "Home"
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* NavLink */],
+              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* NavLink */],
               {
                 exact: true,
                 style: styles.nav,
@@ -24216,24 +24216,24 @@ var Main = function Main() {
       "div",
       { className: "container", style: styles.content },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* Switch */],
+        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["f" /* Switch */],
         null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* Route */], {
           exact: true,
           path: "/wikiNew/public",
           component: __WEBPACK_IMPORTED_MODULE_4__components_HomePage__["a" /* default */]
         }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* Route */], {
           exact: true,
           path: "/wikiNew/public" + "/pages/create",
           component: __WEBPACK_IMPORTED_MODULE_5__components_pages_CreatePage__["a" /* default */]
         }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], {
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* Route */], {
           exact: true,
           path: "/wikiNew/public" + "/wiki/:url",
           component: __WEBPACK_IMPORTED_MODULE_6__components_pages_ShowPage__["a" /* default */]
         }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Route */], { component: __WEBPACK_IMPORTED_MODULE_3__WrongPath__["a" /* default */] })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* Route */], { component: __WEBPACK_IMPORTED_MODULE_3__WrongPath__["a" /* default */] })
       )
     )
   );
@@ -24258,6 +24258,7 @@ var Main = function Main() {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(12);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24268,22 +24269,123 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var HomePage = function (_Component) {
   _inherits(HomePage, _Component);
 
-  function HomePage() {
+  function HomePage(props) {
     _classCallCheck(this, HomePage);
 
-    return _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
+
+    _this.state = {
+      pages: [],
+      loading: true,
+      errors: ""
+    };
+    return _this;
   }
 
   _createClass(HomePage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      return fetch("http://localhost/wikiNew/public" + "/api", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      }).then(function (response) {
+        if (response.message == "Success") {
+          _this2.setState({
+            pages: response.pages,
+            loading: false
+          });
+        } else {
+          _this2.setState({
+            errors: response.message,
+            loading: false
+          });
+        }
+      }).catch(function (error) {
+        _this2.setState({
+          errors: error,
+          loading: false
+        });
+      });
+    }
+  }, {
+    key: "renderPages",
+    value: function renderPages() {
+      return this.state.pages ? this.state.pages.map(function (page) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          { key: page.id, style: { marginBottom: "20px" } },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "h3",
+            null,
+            page.title
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "p",
+              null,
+              page.body.substring(0, 100),
+              "..."
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+              {
+                to: "/wikiNew/public" + "/wiki/" + page.url
+              },
+              "Read more >>"
+            )
+          )
+        );
+      }) : null;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _state = this.state,
+          pages = _state.pages,
+          loading = _state.loading,
+          errors = _state.errors;
+
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
-        null,
-        "Welcome Home"
+        {
+          style: {
+            display: "flex"
+          }
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          "div",
+          null,
+          loading ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            null,
+            "Loading..."
+          ) : errors ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            "div",
+            { className: "text-danger" },
+            "Error loading page.",
+            " ",
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+              {
+                to: "/wikiNew/public",
+                className: "btn btn-link"
+              },
+              "Retry"
+            )
+          ) : pages ? this.renderPages() : null
+        )
       );
     }
   }]);
@@ -24434,7 +24536,7 @@ var CreatePage = function (_Component) {
     key: "render",
     value: function render() {
       if (this.state.success) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Redirect */], {
           to: "/wikiNew/public" + "/wiki/" + this.state.newPage.url
         });
       }
@@ -24774,9 +24876,8 @@ var ShowPage = function (_Component) {
         if (response.message == "Success") {
           _this3.setState({
             links: [].concat(_toConsumableArray(_this3.state.links), [response.link]),
+            linkTitle: "",
             success: "Link added successfully"
-          }, function () {
-            return console.log(_this3.state.links);
           });
         } else {
           _this3.setState({
@@ -24826,7 +24927,8 @@ var ShowPage = function (_Component) {
         if (response.message == "Success") {
           _this4.setState({
             redirect: response.redirect,
-            success: "Redirect configured successfully"
+            success: "Redirect configured successfully",
+            redirectTitle: ""
           });
         } else {
           _this4.setState({
@@ -24971,15 +25073,15 @@ var ShowPage = function (_Component) {
           deleted = _state.deleted;
 
       if (redirectToNewPage) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Redirect */], {
           to: "/wikiNew/public" + "/wiki/" + redirectUrl
         });
       }
       if (deleted) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], { to: "/wikiNew/public" });
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Redirect */], { to: "/wikiNew/public" });
       }
       if (invalid) {
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Redirect */], { to: "/wikiNew/public" + "/404" });
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Redirect */], { to: "/wikiNew/public" + "/404" });
       }
       return page ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
@@ -25183,6 +25285,11 @@ var LinkComponent = function (_Component) {
   _createClass(LinkComponent, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.calculateLinksLength();
+    }
+  }, {
+    key: "calculateLinksLength",
+    value: function calculateLinksLength() {
       var links_length = 0;
       if (Array.isArray(this.props.links)) {
         links_length = this.props.links.length;
@@ -25209,6 +25316,9 @@ var LinkComponent = function (_Component) {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       counter = 0;
+      this.setState({
+        links_length: this.state.links_length++
+      });
     }
   }, {
     key: "renderLinksAndRedirect",
@@ -25258,7 +25368,6 @@ var LinkComponent = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      console.log(this.props);
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         "div",
         { style: styles.linkContainer },

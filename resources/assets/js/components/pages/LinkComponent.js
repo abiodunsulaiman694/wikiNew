@@ -60,6 +60,9 @@ class LinkComponent extends Component {
     this.toggleShowAllLinks = this.toggleShowAllLinks.bind(this);
   }
   componentDidMount() {
+    this.calculateLinksLength();
+  }
+  calculateLinksLength() {
     let links_length = 0;
     if (Array.isArray(this.props.links)) {
       links_length = this.props.links.length;
@@ -82,6 +85,9 @@ class LinkComponent extends Component {
   }
   componentWillReceiveProps(nextProps) {
     counter = 0;
+    this.setState({
+      links_length: this.state.links_length++
+    });
   }
   renderLinksAndRedirect(title, existent, redirect = false, key) {
     {
@@ -118,7 +124,6 @@ class LinkComponent extends Component {
     ) : null;
   }
   render() {
-    console.log(this.props);
     return (
       <div style={styles.linkContainer}>
         {this.props.redirect
