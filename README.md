@@ -9,7 +9,7 @@ helping with reusability and also makes application fast with little DOM Manipul
 For CSS, I used some utility styles from Bootstrap CSS to style the forms and buttons
 due to the time limit.
 
-Challenges
+Todo:
 
 Due to time limit, there were aspects of the system I would have loved to work on
 but could not, due to time constraint:
@@ -34,7 +34,7 @@ To install the project, the following steps should be taken
 within project directory with:
     sudo chmod -R 777 ./storage
     sudo chmod -R 777 ./bootstrap
-    sudo chmod -R 777 ./PUBLIC
+    sudo chmod -R 777 ./public
     [Might require sudo privilege]
 4) Set up .env file at the root of the application.
     Copy .env.example to .env
